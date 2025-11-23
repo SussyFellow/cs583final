@@ -5,23 +5,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed;
-    public float sprintSpeed;
-    public float walkSpeed;
-    public float groundDrag;
-    public Transform orientation;
-    public float jumpForce;
-    public float jumpCooldown;
+    private float moveSpeed; //current speed being used, sprint or walk speed
+    public float sprintSpeed; 
+    public float walkSpeed; 
+    public float groundDrag; 
+    [Tooltip("Player orientation object goes here")]
+    public Transform orientation; 
+    public float jumpForce; 
+    public float jumpCooldown; 
     public float airMultiplier;
     bool readyToJump;
-    enum MovementState
-    {
-        walking,
-        sprinting,
-        air
-    }
-
-    MovementState state;
 
 [Header("Ground Check")]
     public float playerHeight;
@@ -44,25 +37,29 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
 
-    private void Start()
+    private void Start() 
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
+        //these variables just need to be initialized here to prevent niche bugs, they get set properly later
         readyToJump = true;
         exitingSlope = false;
+        moveSpeed = 0;
     }
 
     private void Update()
     {
+        //check if the player is on the ground
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
-        MyInput();
-        SpeedControl();
-        StateHandler();
+        MyInput(); //gets input and does jumping
+        SprintHandler(); //checks if you're sprinting and sets speed accordingly
+        SpeedControl(); //makes sure your speed doesnt go too high
 
-        if (grounded)
+        if (grounded) //makes sure you dont slide on the ground but dont slow down in the air
         {
-            rb.drag = groundDrag;
+            rb.drag = groundDrag; 
         }
         else
         {
@@ -70,12 +67,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate() //only use for important continuous physics stuff
     {
-        MovePlayer();
+        MovePlayer(); //does the normal x and z movement stuff
     }
 
-    private void MyInput()
+    private void MyInput() //gets the input for x and z, and jumps if youre ressing the jump button.
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
@@ -86,17 +83,17 @@ public class PlayerMovement : MonoBehaviour
 
             Jump();
 
-            Invoke(nameof(ResetJump), jumpCooldown);
+            Invoke(nameof(ResetJump), jumpCooldown); //necessary to prevent bugged behavior for jumping extremely rapidly
         }
     }
 
-    private void MovePlayer()
+    private void MovePlayer() //x & y movement
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         
         if (OnSlope())
         {
-            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
+            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 10f, ForceMode.Force);
         }
         else if (grounded)
         {
@@ -108,16 +105,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void SpeedControl()
+    private void SpeedControl() //caps speed as appropriate
     {   
-        if (OnSlope() && !exitingSlope)
+        if (OnSlope() && !exitingSlope) //caps overall velocity when on a slope (and not presently jumping off of that slope)
         {
             if (rb.velocity.magnitude > moveSpeed)
             {
                 rb.velocity = rb.velocity.normalized * moveSpeed;
             }
         }
-        else
+        else //caps x & z combined velocity
         {
             Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
@@ -129,20 +126,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Jump()
+    private void Jump() //jumps
     {
         exitingSlope = true;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
-    private void ResetJump()
+    private void ResetJump() //sets some bools, exists to be called on a cooldown to make jumping not buggy with slopes or rapid jumps
     {
         readyToJump = true;
         exitingSlope = false;
     }
 
-    private bool OnSlope()
+    private bool OnSlope() //checks if youre on a slope
     {
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
         {
@@ -158,21 +155,15 @@ public class PlayerMovement : MonoBehaviour
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 
-    private void StateHandler()
+    private void SprintHandler() //sets movement speed
     {
-        if (grounded && Input.GetKey(sprintKey))
+        if (Input.GetKey(sprintKey))
         {
-            state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
-        }
-        else if (grounded)
-        {
-            state = MovementState.walking;
-            moveSpeed = walkSpeed;
         }
         else
         {
-            state = MovementState.air;
+            moveSpeed = walkSpeed;
         }
     }
 }
