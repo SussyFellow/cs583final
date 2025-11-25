@@ -8,4 +8,4 @@ Goals per person:
 
 Luke: I want to make sure the puzzle and shooting elements are satisfying in combination. I've been brainstorming ways to integrate manipulating individual enemies or groups of them into puzzles, such as needing to shoot an enemy to keep it on top of a button.
 
-Colin: 
+Colin: I intend to make an interesting level where there are compelling environmental puzzles in each room or area that the player needs to solve before being able to move onto the next. I want the player to have to seach the whole room in order to find the intended answer and want the enemies to actually pose as a soft timer where more and more flood the area in order to push the player to solve the puzzles quickly and add a sense of pressure. 
