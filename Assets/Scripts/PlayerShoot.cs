@@ -31,7 +31,7 @@ public class PlayerShoot : MonoBehaviour
             //If it does it will take damage
             if (target != null)
             {
-                target.TakeDamage();
+                target.TakeDamage(hit);
             }
         }
     }
