@@ -9,11 +9,20 @@ public class Target : MonoBehaviour
     {
         Enemy,
         Button,
+        GridSphere,
         Other
     }
     public targetType type;
 
+    //For Button
     [Header("For Buttons Only")] public UnityEvent onShot;
+
+    //For Grid Spheres
+    [Header("For Grid Spheres Only")] 
+    public bool isGridSphereOn = false;
+    public PuzzleGridManager gridManager;
+    public Color colorOn = Color.white;
+    public Color colorOff = Color.black;
     
     public void TakeDamage(RaycastHit hit)
     {
@@ -28,6 +37,9 @@ public class Target : MonoBehaviour
             case targetType.Button:
                 onShot.Invoke();
                 break;
+            case targetType.GridSphere:
+                ToggleGridSphere();
+                break;
             default:
                 //Getting the Renderer component so we can change the material color
                 Renderer render = GetComponent<Renderer>();
@@ -35,5 +47,26 @@ public class Target : MonoBehaviour
                 render.material.color = Random.ColorHSV();
                 break;
         } 
+    }
+    
+    
+    
+    //This function handles switching the colors and notifing the manager
+    void ToggleGridSphere()
+    {
+        isGridSphereOn = !isGridSphereOn; //Flip sphere on or off
+
+        //Updating Sphere color
+        Renderer r = GetComponent<Renderer>();
+        if (r != null)
+        {
+            r.material.color = isGridSphereOn ? colorOn : colorOff;
+        }
+        
+        //Telling manager to check if correct
+        if (gridManager != null)
+        {
+            gridManager.CheckPuzzle();
+        }
     }
 }
