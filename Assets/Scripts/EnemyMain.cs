@@ -16,7 +16,8 @@ public class EnemyMain : MonoBehaviour
     public float recoveryTime;
     float recoveryTimer;
 
-    
+    public Animator animator;
+    public Collider collider;
 
     public enum enemyState
     {
@@ -32,6 +33,7 @@ public class EnemyMain : MonoBehaviour
     {
         health = startHealth;
         state = enemyState.Walking;
+        animator.SetBool("Walking", true);
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
     }
@@ -61,6 +63,7 @@ public class EnemyMain : MonoBehaviour
         Debug.Log("I was hit!");
         agent.ResetPath(); //enemy stops going anywhere
         agent.updatePosition = false; //disables automatic movement
+        transform.rotation = Quaternion.LookRotation(new Vector3(hit.normal.x, 0f, hit.normal.z));
         rb.isKinematic = false;
         rb.AddForce(hit.normal * knockbackForce * -1, ForceMode.Impulse);
         recoveryTimer = recoveryTime;
@@ -68,10 +71,14 @@ public class EnemyMain : MonoBehaviour
         if (health <= 0)
         {
             state = enemyState.Dead;
+            animator.SetBool("Dead", true);
+            rb.isKinematic = true;
+            collider.enabled = false;
         }
         else
         {
             state = enemyState.Recoil;
+            animator.SetBool("Damaged", true);
         }
     }
 
@@ -81,5 +88,6 @@ public class EnemyMain : MonoBehaviour
         agent.Warp(transform.position);
         agent.updatePosition = true;
         state = enemyState.Walking;
+        animator.SetBool("Damaged", false);
     }
 }
