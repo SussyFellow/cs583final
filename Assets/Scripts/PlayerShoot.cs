@@ -11,6 +11,7 @@ public class PlayerShoot : MonoBehaviour
     public float shootCooldown;
     public float laserRenderTime;
     bool readyShoot;
+    public AudioSource laserAudio;
 
     void Awake()
     {
@@ -31,6 +32,11 @@ public class PlayerShoot : MonoBehaviour
     void Shoot()
     {
         readyShoot = false;
+
+        if (laserAudio != null)
+        {
+            laserAudio.Play();
+        }
 
         RaycastHit hit; //store info about what we hit
 

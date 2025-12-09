@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.5748165, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -245,6 +245,7 @@ MonoBehaviour:
   onShot:
     m_PersistentCalls:
       m_Calls: []
+  buttonSound: {fileID: 0}
   isGridSphereOn: 0
   gridManager: {fileID: 0}
   colorOn: {r: 1, g: 1, b: 1, a: 1}
@@ -317,42 +318,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &459952932 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1067948011260085401, guid: 53729e61f26c149a4b3584ccebc74f56, type: 3}
-  m_PrefabInstance: {fileID: 5226792828369360089}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &459952938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459952932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
-  m_BuildHeightMesh: 0
 --- !u!1 &670528656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,6 +1577,7 @@ GameObject:
   - component: {fileID: 6747436153648470726}
   - component: {fileID: 2790290089480793537}
   - component: {fileID: 2435456551978538068}
+  - component: {fileID: 6747436153648470727}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -1682,14 +1648,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4225433487793196130, guid: 53729e61f26c149a4b3584ccebc74f56, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: c99f90985c0f04b4d884538c3ca6c45b, type: 2}
-    - target: {fileID: 5863330210821223397, guid: 53729e61f26c149a4b3584ccebc74f56, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: cd6e4b38d50c84765b3a2410a736cea8, type: 2}
     - target: {fileID: 6037215368845085912, guid: 53729e61f26c149a4b3584ccebc74f56, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0350881
@@ -1737,10 +1695,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1067948011260085401, guid: 53729e61f26c149a4b3584ccebc74f56, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 459952938}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53729e61f26c149a4b3584ccebc74f56, type: 3}
 --- !u!4 &5950777265822247153
 Transform:
@@ -1843,6 +1798,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7293120682347704680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &6747436153648470727
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4375914751577465733}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 995513ca210c4485390c1e1769dc436d, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &7293120682347704680
 Transform:
   m_ObjectHideFlags: 0
@@ -2142,6 +2193,7 @@ MonoBehaviour:
   gun: {fileID: 4375914751577465733}
   shootCooldown: 0.1
   laserRenderTime: 0.05
+  laserAudio: {fileID: 6747436153648470727}
 --- !u!4 &8945073910677297575
 Transform:
   m_ObjectHideFlags: 0

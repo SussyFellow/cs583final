@@ -15,7 +15,9 @@ public class Target : MonoBehaviour
     public targetType type;
 
     //For Button
-    [Header("For Buttons Only")] public UnityEvent onShot;
+    [Header("For Buttons Only")] 
+    public UnityEvent onShot;
+    public AudioSource buttonSound;
 
     //For Grid Spheres
     [Header("For Grid Spheres Only")] 
@@ -36,9 +38,11 @@ public class Target : MonoBehaviour
                 break;
             case targetType.Button:
                 onShot.Invoke();
+                buttonSound.Play();
                 break;
             case targetType.GridSphere:
                 ToggleGridSphere();
+                buttonSound.Play();
                 break;
             default:
                 //Getting the Renderer component so we can change the material color

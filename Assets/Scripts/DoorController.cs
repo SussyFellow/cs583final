@@ -10,6 +10,7 @@ public class DoorController : MonoBehaviour
     private bool isOpen = false;
     private Vector3 closedPos; //Starts closed
     private Vector3 openPos;
+    public AudioSource doorAudio;
 
     void Start()
     {
@@ -26,23 +27,32 @@ public class DoorController : MonoBehaviour
         //Move towards that destination smoothly
         //Vector3.MoveTowards automatically stops when it reaches the target
         transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
+        
+        float distance = Vector3.Distance(transform.position, destination);
+        if (distance < 0.1f && doorAudio.isPlaying)
+        {
+            doorAudio.Stop();
+        }
     }
 
     //Call this to open
     public void OpenDoor()
     {
+        doorAudio.Play();
         isOpen = true;
     }
 
     //Call this to close
     public void CloseDoor()
     {
+        doorAudio.Play();
         isOpen = false;
     }
 
     //Call this to swap between open and closed
     public void ToggleDoor()
     {
+        doorAudio.Play();
         isOpen = !isOpen;
     }
 }
