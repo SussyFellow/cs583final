@@ -248,8 +248,9 @@ MonoBehaviour:
   buttonSound: {fileID: 0}
   isGridSphereOn: 0
   gridManager: {fileID: 0}
-  colorOn: {r: 1, g: 1, b: 1, a: 1}
-  colorOff: {r: 0, g: 0, b: 0, a: 1}
+  materialOn: {fileID: 0}
+  materialOff: {fileID: 0}
+  sphereLight: {fileID: 0}
 --- !u!1 &324328063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1807,10 +1808,10 @@ AudioSource:
   m_GameObject: {fileID: 4375914751577465733}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8946922680739412652, guid: 5163c38c08e774b7e964c48e1b1d13e5, type: 2}
   m_audioClip: {fileID: 8300000, guid: 995513ca210c4485390c1e1769dc436d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

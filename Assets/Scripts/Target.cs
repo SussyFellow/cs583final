@@ -23,8 +23,9 @@ public class Target : MonoBehaviour
     [Header("For Grid Spheres Only")] 
     public bool isGridSphereOn = false;
     public PuzzleGridManager gridManager;
-    public Color colorOn = Color.white;
-    public Color colorOff = Color.black;
+    public Material materialOn;
+    public Material materialOff;
+    public Light sphereLight;
     
     public void TakeDamage(RaycastHit hit)
     {
@@ -64,7 +65,13 @@ public class Target : MonoBehaviour
         Renderer r = GetComponent<Renderer>();
         if (r != null)
         {
-            r.material.color = isGridSphereOn ? colorOn : colorOff;
+            r.material = isGridSphereOn ? materialOn : materialOff;
+        }
+        
+        //Turning on Light if on
+        if (sphereLight != null)
+        {
+            sphereLight.enabled = isGridSphereOn;
         }
         
         //Telling manager to check if correct
