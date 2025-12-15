@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -31,7 +32,15 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit slopeHit;
     bool exitingSlope;
 
+    [Header("Other Gameplay Stats")]
+    public float maxHealth;
+    public float health;
+    public float recoveryTime; //how much time after you take damage before you start healing
+    float recoveryTimer;
+    public float healPerSecond; //how much to heal per second
 
+    [Header("Unity Elements")]
+    public Image redScreen;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -46,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
         exitingSlope = false;
         moveSpeed = 0;
+        health = maxHealth;
     }
 
     private void Update()
@@ -64,6 +74,20 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.drag = 0;
+        }
+        
+        Color newRed = redScreen.color;
+        newRed.a = 0.5f - (health / maxHealth * 0.5f);
+        redScreen.color = newRed;
+        
+        if (recoveryTimer > 0)
+        {
+            recoveryTimer -= Time.deltaTime;
+        }
+        else
+        {
+            health += healPerSecond * Time.deltaTime;
+            health = Mathf.Clamp(health, 0f, maxHealth);
         }
     }
 
@@ -165,5 +189,13 @@ public class PlayerMovement : MonoBehaviour
         {
             moveSpeed = walkSpeed;
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        health = Mathf.Clamp(health, 0f, maxHealth);
+        recoveryTimer = recoveryTime;
+        
     }
 }

@@ -46,7 +46,6 @@ public class PlayerShoot : MonoBehaviour
         //Shooting a ray from the camera's position forward in a straight line
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            Debug.Log("I hit: " + hit.transform.name);
 
             laserPoints[1] = hit.point;
 
