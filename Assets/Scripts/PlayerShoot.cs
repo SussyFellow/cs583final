@@ -12,12 +12,14 @@ public class PlayerShoot : MonoBehaviour
     public float laserRenderTime;
     bool readyShoot;
     public AudioSource laserAudio;
+    public Light light;
 
     void Awake()
     {
         laserRender = GetComponent<LineRenderer>();
         laserRender.enabled = false;
         readyShoot = true;
+        laserRender.positionCount = 2;
     }    
 
     void Update()
@@ -27,11 +29,17 @@ public class PlayerShoot : MonoBehaviour
         {
             Shoot();
         }
+        if (laserRender.enabled)
+        {
+            Vector3 temp = laserRender.GetPosition(1) - laserRender.GetPosition(0);
+            laserRender.SetPosition(0, laserRender.GetPosition(0) + temp.normalized * 10f * Time.deltaTime);
+        }
     }
 
     void Shoot()
     {
         readyShoot = false;
+        light.enabled = true;
 
         if (laserAudio != null)
         {
@@ -40,14 +48,13 @@ public class PlayerShoot : MonoBehaviour
 
         RaycastHit hit; //store info about what we hit
 
-        Vector3[] laserPoints = new Vector3[2];
-        laserPoints[0] = gun.transform.position + gun.transform.forward * 0.4f;
+        laserRender.SetPosition(0, gun.transform.position + gun.transform.forward * 0.975f + gun.transform.up * 0.09f); //tip of laser gun barrel
 
         //Shooting a ray from the camera's position forward in a straight line
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
 
-            laserPoints[1] = hit.point;
+            laserRender.SetPosition(1, hit.point);
 
             //Checking if the object we hit has the Target script
             Target target = hit.transform.GetComponent<Target>();
@@ -60,10 +67,8 @@ public class PlayerShoot : MonoBehaviour
         }
         else
         {
-            laserPoints[1] = fpsCam.transform.position + fpsCam.transform.forward * range;
+            laserRender.SetPosition(1, fpsCam.transform.position + fpsCam.transform.forward * range);
         }
-
-        laserRender.SetPositions(laserPoints);
 
         laserRender.enabled = true;
         Invoke(nameof(ResetShoot), shootCooldown);
@@ -75,6 +80,7 @@ public class PlayerShoot : MonoBehaviour
     void UndrawLaser()
     {
         laserRender.enabled = false;
+        light.enabled = false;
     }
 
     void ResetShoot()

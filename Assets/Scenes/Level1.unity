@@ -131,14 +131,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2337966347232857826, guid: d6e460503fd939e4ca728dbac9f59126, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4645981831106252320, guid: d6e460503fd939e4ca728dbac9f59126, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5286353602566844239, guid: d6e460503fd939e4ca728dbac9f59126, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -187,8 +179,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crosshair
       objectReference: {fileID: 0}
-    - target: {fileID: 7041551703598711934, guid: d6e460503fd939e4ca728dbac9f59126, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 8600930328112492888, guid: d6e460503fd939e4ca728dbac9f59126, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600930328112492888, guid: d6e460503fd939e4ca728dbac9f59126, type: 3}
+      propertyPath: m_Intensity
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600930328112492888, guid: d6e460503fd939e4ca728dbac9f59126, type: 3}
+      propertyPath: m_SpotAngle
+      value: 4.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600930328112492888, guid: d6e460503fd939e4ca728dbac9f59126, type: 3}
+      propertyPath: m_InnerSpotAngle
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
