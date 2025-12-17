@@ -67,7 +67,7 @@ public class EnemyMain : MonoBehaviour
 
                 attackTimer -= Time.deltaTime;
 
-                if (agent.remainingDistance < agent.stoppingDistance) //if very close to player, attack and keep facing them
+                if (Vector3.Distance(transform.position, target.position) < agent.stoppingDistance) //if very close to player, attack and keep facing them
                 {
                     agent.updateRotation = false; //control rotation with script
                     Vector3 directionToTarget = target.position - transform.position;
@@ -143,7 +143,7 @@ public class EnemyMain : MonoBehaviour
     {
         animator.SetBool("Attack", false); //make sure it can naturally transition to walking or some other state 
         agent.speed = speed;
-        if (agent.remainingDistance < agent.stoppingDistance * 1.2f && state == enemyState.Walking)
+        if (Vector3.Distance(transform.position, target.position) < agent.stoppingDistance * 1.2f && state == enemyState.Walking)
         {
             playerScript.TakeDamage(damagePerAttack);
         }
