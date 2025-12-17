@@ -196,6 +196,28 @@ public class PlayerMovement : MonoBehaviour
         health -= damage;
         health = Mathf.Clamp(health, 0f, maxHealth);
         recoveryTimer = recoveryTime;
-        
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+    
+    void Die()
+    {
+        //Disable movement
+        rb.velocity = Vector3.zero;
+        this.enabled = false; 
+
+        //Call the Game Over screen
+        if (GameMenuManager.instance != null)
+        {
+            GameMenuManager.instance.GameOver();
+        }
+        else
+        {
+            Debug.LogWarning("Player Died, but GameMenuManager is missing from the scene!");
+        }
     }
 }
+

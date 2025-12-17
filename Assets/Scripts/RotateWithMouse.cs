@@ -12,12 +12,16 @@ public class RotateWithMouse : MonoBehaviour
 
     private void Start() //sets up cursor settings properly
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Switched this over to game menu manager
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     private void Update() //every frame, mouse input is taken and then orients the player properly
     {
+        //If game is paused, stop moving camera
+        if (GameMenuManager.instance != null && !GameMenuManager.instance.isGameActive) return;
+        
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
         yRotation += mouseX;

@@ -24,6 +24,17 @@ public class PlayerShoot : MonoBehaviour
 
     void Update()
     {
+        //Checking if game manager says game is paused so to not shoot
+        if (GameMenuManager.instance != null && !GameMenuManager.instance.isGameActive)
+        {
+            return;
+        }
+        //also checking if time is frozen
+        if (Time.timeScale == 0f)
+        {
+            return;
+        }
+        
         //Fire1 is left-click by default in Unity
         if (Input.GetButtonDown("Fire1") && readyShoot)
         {
