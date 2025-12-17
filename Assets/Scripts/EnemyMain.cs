@@ -8,6 +8,7 @@ public class EnemyMain : MonoBehaviour
     NavMeshAgent agent;
     Rigidbody rb;
     Transform target;
+    [HideInInspector] public LevelManager manager;
     public GameObject player;
     PlayerMovement playerScript;
 
@@ -35,7 +36,7 @@ public class EnemyMain : MonoBehaviour
 
     enemyState state;
 
-    void Awake()
+    void Start()
     {
         health = startHealth;
         state = enemyState.Walking;
@@ -110,6 +111,8 @@ public class EnemyMain : MonoBehaviour
             animator.SetBool("Dead", true);
             rb.isKinematic = true;
             collider.enabled = false;
+            manager.enemyList.Remove(this.gameObject);
+            Destroy(this.gameObject, 10f);
         }
         else
         {
