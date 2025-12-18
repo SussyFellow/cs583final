@@ -12,6 +12,8 @@ public class EnemyMain : MonoBehaviour
     public GameObject player;
     PlayerMovement playerScript;
 
+    AudioSource audio;
+
     public float startHealth;
 
     float health;
@@ -25,6 +27,8 @@ public class EnemyMain : MonoBehaviour
     float speed;
     public Animator animator;
     public Collider collider;
+    public AudioClip attackSound;
+    public AudioClip deathSound;
 
     public enum enemyState
     {
@@ -38,6 +42,7 @@ public class EnemyMain : MonoBehaviour
 
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         health = startHealth;
         state = enemyState.Walking;
         animator.SetBool("Walking", true);
@@ -112,6 +117,7 @@ public class EnemyMain : MonoBehaviour
             rb.isKinematic = true;
             collider.enabled = false;
             manager.enemyList.Remove(this.gameObject);
+            audio.PlayOneShot(deathSound);
             Destroy(this.gameObject, 10f);
         }
         else
@@ -133,6 +139,7 @@ public class EnemyMain : MonoBehaviour
 
     void Attack()
     {
+        audio.PlayOneShot(attackSound);
         attackTimer = attackTime;
         animator.SetBool("Attack", true);
         agent.speed = 0f;
